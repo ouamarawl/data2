@@ -22,6 +22,12 @@ app.get('/api/produits', (req, res) => {
   res.json(produits);
 });
 
+app.get('/api/produits/:id', (req, res) => {
+    const produit = produits.find(p => p.id === parseInt(req.params.id));
+    if (!produit) return res.status(404).send('produit not found');
+    res.json(produit);
+});
+
 app.post('/api/produits', (req, res) => {
   const newProduit = { id: produits.length + 1, ...req.body };
   produits.push(newProduit);
